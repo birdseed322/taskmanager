@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  desc: MyText
+  subtask: MyText
+  duedate: 2022-01-11
+  est: 2022-01-11
+
+two:
+  title: MyString
+  desc: MyText
+  subtask: MyText
+  duedate: 2022-01-11
+  est: 2022-01-11
