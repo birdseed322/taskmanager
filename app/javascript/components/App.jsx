@@ -1,14 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import Routes from "../routes/index";
+import "antd/dist/antd.css";
 
-
-function App(){
-    return (
-        <div>
-            Hello this is react 
-        </div>
-    )
-
-}
-
-export default App
+export default () => <>{Routes}</>;
