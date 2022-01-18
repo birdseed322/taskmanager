@@ -1,11 +1,12 @@
 import React from "react";
+import Note from "./Note";
 
 function Notes(){
     const [notes,setNotes] = React.useState({
         notes:[]
     })
 
-    React.useEffect(()=>{
+    function loadNotes(){
         const url = "/notes"
         fetch(url).then((data) => {
             if (data.ok){
@@ -14,7 +15,7 @@ function Notes(){
             throw new Error("Network error.");
         })
         .then((data) => {
-            data.forEach((note) => {
+            data.map((note) => {
                 const newE1 = {
                     key: note.id,
                     id: note.id,
@@ -30,14 +31,25 @@ function Notes(){
                 })
             })
         }).catch((err) => message.error("Error: " + err))
-    })
-    
+    }
+
+    function reloadNotes(){
+        setNotes({
+            notes:[]
+        })
+        loadNotes()
+    }
+
+    //Prevent recursive renders
+    React.useEffect(loadNotes,[])
+
+
     return(
-        <ul>
-        {notes.notes.map(note =>{
-            return <li>{(note.title)}</li>
+        <div>
+        {notes.notes.map((note) =>{
+            return <Note key = {note.id} id={note.id} title={note.title} desc={note.desc} subtask = {note.subtask} duedate = {note.duedate} est = {note.est}/>
         })}
-        </ul>
+        </div>
     )
 
 
