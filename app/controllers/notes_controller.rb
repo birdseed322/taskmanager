@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-
+  protect_from_forgery with: :null_session
   def home
     
   end
@@ -20,7 +20,9 @@ class NotesController < ApplicationController
   end
 
   def create
-  
+    newNote = Note.new(note_params)
+    newNote.save
+    render json: {status: "Ok!"}
   end
 
   def show
