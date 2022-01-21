@@ -1,12 +1,35 @@
-import React from "react"
 
+import React from "react"
+import SubTask from './SubTask';
 
 function NewEntry(props){
     const [title, setTitle] = React.useState("")
     const [desc, setDesc] = React.useState("")
-    const [subTask, setSubTask] = React.useState([])
+    const [subTask, setSubTask] = React.useState("")
+    const [subTasks, setSubTasks] = React.useState({
+        subTasks:[]
+    })
     const [dueDate, setDueDate] = React.useState("")
     const [est, setEst] = React.useState("")
+    function addSubTask(e){
+        e.preventDefault();
+        setSubTasks((prev)=>{
+            return {
+                subTasks:[...prev.subTasks, subTask]
+            }
+        })
+        setSubTask("")
+    }
+
+    function deleteSubTask(text){
+        const newSubTasks = subTasks.subTasks.filter((st)=>{
+            return st !== text
+         })
+        setSubTasks({
+            subTasks: newSubTasks
+        })
+    }
+
     async function handleSubmit(e){
         e.preventDefault();
         const url = "/notes"
@@ -18,11 +41,11 @@ function NewEntry(props){
                     "Accept": "application/json"
                 },
                 body:JSON.stringify({
-                        title:title,
-                        desc: desc,
-                        subTask: subTask,
-                        dueDate: dueDate,
-                        est: est
+                    title:title,
+                    desc: desc,
+                    subtask: subTasks.subTasks,
+                    duedate: dueDate,
+                    est: est
                 })
             })
     
@@ -30,7 +53,9 @@ function NewEntry(props){
             if (response.status === 200){
                 setTitle("");
                 setDesc("");
-                setSubTask([]);
+                setSubTasks({
+                    subTasks:[]
+                });
                 setDueDate("");
                 setEst("");
                 props.reloadNotes();
@@ -48,18 +73,32 @@ function NewEntry(props){
         <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="note[title]"
+          name="title"
           value={title}
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
           type="text"
-          name="note[desc]"
+          name="desc"
           value={desc}
           placeholder="Description"
           onChange={(e) => setDesc(e.target.value)}
         />
+        <input
+          type="text"
+          name="subtask"
+          value={subTask}
+          placeholder="Add Subtask"
+          onChange={(e) => setSubTask(e.target.value)}
+        />
+        <button onClick={addSubTask}>+</button>
+        <ul>
+            {subTasks.subTasks.map((st, index)=>{
+                return <SubTask key={index} index={index} st={st} deleteSubTask={deleteSubTask}/>
+            })}
+        </ul>
+
 
         <button type="submit">Create</button>
         </form>

@@ -46,9 +46,9 @@ class NotesController < ApplicationController
     def set_note
       @note = Note.find(params[:id])
     end
-
+    
     def note_params
-      params.permit(:title, :desc, :subtask, :duedate, :est)
+      params.require(:note).permit(:title, :desc, {:subtask => []}, :duedate, :est)
     end
 
 end
