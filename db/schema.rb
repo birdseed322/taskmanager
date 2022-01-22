@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_125807) do
+ActiveRecord::Schema.define(version: 2022_01_22_085833) do
 
   create_table "notes", force: :cascade do |t|
     t.string "title"
     t.text "desc"
     t.text "subtask"
     t.date "duedate"
-    t.date "est"
+    t.integer "est"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

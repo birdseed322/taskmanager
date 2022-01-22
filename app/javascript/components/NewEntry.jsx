@@ -85,6 +85,8 @@ function NewEntry(props){
           placeholder="Description"
           onChange={(e) => setDesc(e.target.value)}
         />
+        <input type="date" name="duedate" value={dueDate} placeholder="Select due date" onChange={(e)=>setDueDate(e.target.value)} />
+        <input type="number" name="est" value={est} placeholder="Number of days needed" onChange={(e)=>setEst(e.target.value)} />
         <input
           type="text"
           name="subtask"
