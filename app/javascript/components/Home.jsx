@@ -54,7 +54,7 @@ function Home(){
             <div className="site-layout-content" style={{ margin: "100px auto" }}>
             <h1>DeadLines</h1>
             <NewEntry reloadNotes = {reloadNotes}/>
-            <Notes listOfNotes= {notes.notes}/>
+            <Notes reloadNotes={reloadNotes} listOfNotes= {notes.notes}/>
             </div>
         </Content>
     </Layout>

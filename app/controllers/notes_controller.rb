@@ -38,7 +38,8 @@ class NotesController < ApplicationController
   end
 
   def destroy
-
+    @note.destroy
+    render json: {status: "Ok!"}
   end
 
   private

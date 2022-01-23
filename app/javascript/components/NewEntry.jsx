@@ -70,32 +70,34 @@ function NewEntry(props){
     }
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form className="new-note-form" onSubmit={handleSubmit}>
         <input
           type="text"
+          className="new-note-title"
           name="title"
           value={title}
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
         />
-        <input
-          type="text"
+        <textarea
+          className="new-note-description"
           name="desc"
           value={desc}
           placeholder="Description"
           onChange={(e) => setDesc(e.target.value)}
         />
-        <input type="date" name="duedate" value={dueDate} placeholder="Select due date" onChange={(e)=>setDueDate(e.target.value)} />
-        <input type="number" name="est" value={est} placeholder="Number of days needed" onChange={(e)=>setEst(e.target.value)} />
+        <label className="new-note-due-date-label">Due date: </label><input type="date" className="new-note-due-date" name="duedate" value={dueDate} placeholder="Select due date" onChange={(e)=>setDueDate(e.target.value)} />
+        <input type="number" className="new-note-est" name="est" value={est} placeholder="Number of days needed" onChange={(e)=>setEst(e.target.value)} />
         <input
           type="text"
+          className="new-note-subtask"
           name="subtask"
           value={subTask}
           placeholder="Add Subtask"
           onChange={(e) => setSubTask(e.target.value)}
         />
         <button onClick={addSubTask}>+</button>
-        <ul>
+        <ul className="new-note-subtasks">
             {subTasks.subTasks.map((st, index)=>{
                 return <SubTask key={index} index={index} st={st} deleteSubTask={deleteSubTask}/>
             })}

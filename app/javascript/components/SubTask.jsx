@@ -8,7 +8,7 @@ function SubTask(props){
         props.deleteSubTask(text)
     }
     return(
-        <li key={props.index}>{props.st}<button onClick={handleClick}>-</button></li>
+        <li className="new-note-subtask-item" key={props.index}>{props.st}<button onClick={handleClick} className="new-note-subtask-item-delete">-</button></li>
     )
 }
 export default SubTask
