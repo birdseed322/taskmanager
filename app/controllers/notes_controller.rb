@@ -5,6 +5,9 @@ class NotesController < ApplicationController
     
   end
 
+  def display_note
+  end
+
   def index
     @notes = Note.all
     render json: @notes
