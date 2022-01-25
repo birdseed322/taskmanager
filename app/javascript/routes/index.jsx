@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "../components/Home";
 import UpdateNote from "../components/UpdateNote";
 
+//Allocates appropriate components to appropriate routes
 export default (
   <Router>
     <Routes>

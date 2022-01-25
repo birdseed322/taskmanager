@@ -6,6 +6,7 @@ import SubTask from './SubTask'
 
 function UpdateNote(){
 
+    //params variable use to capture paramater in URL, which will be used to send GET request to appropriate note id route, to retrieve the note specific information.
     const params = useParams();
     const url = '/notes/' + params.id;
     const navigate = useNavigate();
@@ -17,19 +18,12 @@ function UpdateNote(){
     });
     const [dueDate, setDueDate] = React.useState("");
     const [est, setEst] = React.useState("");
-    const [noteData, setNoteData] = React.useState({
-        title:"",
-        desc: "",
-        subtasks: [],
-        duedate: "",
-        est: ""
-    });
+    
+   
     function handleReturnHome(){
         navigate('/');
     }
-    function handleSubmit(e){
-        console.log(e);
-    }
+
     function deleteSubTask(text){
         const newSubTasks = subTasks.subTasks.filter((st)=>{
             return st !== text;
@@ -48,18 +42,14 @@ function UpdateNote(){
         });
         setSubTask("");
     }
+
+    //Function to load notes. Done by launching GET request to specific note id route, using the id in the param 
     async function loadNote(){
         const note = await fetch(url).then((res)=>{
             return res.json()
         }).then((response)=>{
             console.log(response)
-            setNoteData({
-                title:response.title,
-                desc: response.desc,
-                subtasks: response.subtask,
-                duedate: response.duedate,
-                est: response.est
-            })
+            //Response is captured to be displayed in the notes
             setTitle(response.title)
             setDesc(response.desc)
             setSubTasks({
@@ -70,6 +60,7 @@ function UpdateNote(){
         })
     }
 
+    //Function to submit task information to API through a PATCH request to update the information in the DB. After which, user is redirected back to root page
     async function handleUpdate(e){
         e.preventDefault()
         const update = fetch(url, {
@@ -90,7 +81,7 @@ function UpdateNote(){
         })
     }
     
-
+    //Allow note information to be rendered
     React.useEffect(()=>{
         loadNote()
     },[])
@@ -98,7 +89,7 @@ function UpdateNote(){
     return (
         <div>
         <button onClick={handleReturnHome} className='link-to-home'>Return to Notes</button>
-        <form className="new-note-form" onSubmit={handleSubmit}>
+        <form className="new-note-form">
         <input
           type="text"
           className="new-note-title"
@@ -115,7 +106,7 @@ function UpdateNote(){
           onChange={(e) => setDesc(e.target.value)}
         />
         <label className="new-note-due-date-label">Due date: </label><input type="text"  className="new-note-due-date" name="duedate" value={dueDate} onFocus={(e)=>(e.target.type = "date")} onBlur={(e)=>(e.target.type = "text")} placeholder={dueDate} onChange={(e)=>setDueDate(e.target.value)} />
-        <input type="number" className="new-note-est" name="est" value={est} placeholder={noteData.est} onChange={(e)=>setEst(e.target.value)} />
+        <input type="number" className="new-note-est" name="est" value={est} placeholder={est} onChange={(e)=>setEst(e.target.value)} />
         <input
           type="text"
           className="new-note-subtask"

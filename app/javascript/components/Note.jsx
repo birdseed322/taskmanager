@@ -2,8 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Note(props){
+
+    //Navigate used to redirect to task specific page
     const navigate = useNavigate();
     const id = props.id;
+
+    //Function to handle deletion of note by sending delete request to specific id. If successful, home page reloads to display update.
     function deleteNote(e){
         e.preventDefault();
         const url = "/notes/" + id;
@@ -20,10 +24,14 @@ function Note(props){
             console.log(err)
         }
     }
+    
+    //Function to redirect user to the specified task page
     function handleExpansion(){
         navigate("/display_note/" + id)
     }
 
+    
+    //Function to calculate number of days left to selected due date, starting from today.
     function daysLeft(dueDate){
         const today = new Date()
         const due = new Date(dueDate)

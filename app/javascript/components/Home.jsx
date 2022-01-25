@@ -11,6 +11,7 @@ function Home(){
         notes:[]
     })
 
+    // Function to load the notes from the DB through lauching a get request to notes route
     function loadNotes(){
         const url = "/notes"
         fetch(url).then((data) => {
@@ -38,6 +39,7 @@ function Home(){
         }).catch((err) => message.error("Error: " + err))
     }
 
+    // Function to reload notes, to update the notes on the page
     function reloadNotes(){
         setNotes({
             notes:[]

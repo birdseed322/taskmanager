@@ -11,6 +11,8 @@ function NewEntry(props){
     })
     const [dueDate, setDueDate] = React.useState("")
     const [est, setEst] = React.useState("")
+
+    //Function to add subtask to list of subtasks
     function addSubTask(e){
         e.preventDefault();
         setSubTasks((prev)=>{
@@ -21,6 +23,7 @@ function NewEntry(props){
         setSubTask("")
     }
 
+    //Function to handle the deletion of subtask 
     function deleteSubTask(text){
         const newSubTasks = subTasks.subTasks.filter((st)=>{
             return st !== text
@@ -30,6 +33,7 @@ function NewEntry(props){
         })
     }
 
+    //FUnctino that handles submission of new tasks through launching a POST request
     async function handleSubmit(e){
         e.preventDefault();
         const url = "/notes"
